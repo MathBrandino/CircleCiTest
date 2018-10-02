@@ -18,11 +18,38 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
+  roda_testes:
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
       - run:
           name: Run Tests
           command: ./gradlew lint test
+
+  gera_paradas:
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
       - store_artifacts:
           path: app/build/reports
           destination: reports
       - store_test_results:
           path: app/build/test-results
+
+
+workflows:
+  version: 2
+  roda_tudo:
+    jobs:
+      - build
+      - roda_testes:
+        requires:
+          - build
+      - gera_paradas
+        requires:
+          - roda_testes
