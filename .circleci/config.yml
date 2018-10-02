@@ -19,6 +19,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
   roda_testes:
+    working_directory: ~/code
     docker:
       - image: circleci/android:api-28-alpha
     environment:
@@ -29,6 +30,7 @@ jobs:
           command: ./gradlew lint test
 
   gera_paradas:
+    working_directory: ~/code
     docker:
       - image: circleci/android:api-28-alpha
     environment:
