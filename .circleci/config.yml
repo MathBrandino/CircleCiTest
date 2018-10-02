@@ -50,6 +50,6 @@ workflows:
       - roda_testes:
         requires:
           - build
-      - gera_paradas
+      - gera_paradas:
         requires:
           - roda_testes
