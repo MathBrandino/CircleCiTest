@@ -17,6 +17,6 @@ class ExampleUnitTest {
 
     @Test
     fun shouldBeTrue() {
-        assertTrue(false)
+        assertTrue(true)
     }
 }
